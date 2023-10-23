@@ -136,9 +136,9 @@
                            if (word == '#') { // This was the last word needed
                               window.location.replace("/success");} // Change the webpage to the success page, goal has been achieved
                            else if (word == '!'){   // This was one of the words NOT in the jumble
-                               $("#message").html("Unfortunately that was not one of the words that can be made, keep trying!"); // Add the word to the list of correct words
+                               $("#message").html("NOT IN JUMBLE: Unfortunately that was not one of the words that can be made, keep trying!"); // Add the word to the list of correct words
                            } else if (word == '?'){   // This was not a valid word
-                               $("#message").html("That's not quite it, try making one of the words above!"); // Let the user know that that's not in the list
+                               $("#message").html("NOT A VALID WORD: That's not quite it, try making one of the words above that you have not tried yet!"); // Let the user know that that's not in the list
                            } else if (word != ''){   // This was not the last word needed, but was correct
                               $("#response").append(word); // Add the word to the list of correct words
                               $("#attempt").val(""); // Clear the attempt space (remove the word and start fresh)) 
