@@ -6,11 +6,13 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      
       <!-- Javascript and Cascading Style Sheets (css) libraries -->
       <!-- mostly from content delivery networks                 -->
       <!-- jquery; CDN load is usually quick because it's likely cached -->
       <script type="text/javascript"
          src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      
       <!-- 12 column grid rearranges itself for smaller screens or windows. -->
       <!-- This project is using an older version, make sure to check out newer versions! -->
       <!-- http://getbootstrap.com/getting-started/  -->
@@ -19,17 +21,21 @@
          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
          crossorigin="anonymous">
-      <!-- Compiled and minified JavaScript -->
+      
+         <!-- Compiled and minified JavaScript -->
       <script
          src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
          crossorigin="anonymous"></script>
-      <!-- Let's set our title! -->
+      
+         <!-- Let's set our title! -->
       <title>Vocabulary Anagram</title>
+      
       <!-- Our own css file.  Note how we can link directly here and not -->
       <!-- write any routing code in the Flask application. -->
       <link rel="stylesheet" href="/static/jumble.css" />
    </head>
+
    <body>
       <div class="container">
          <div class="row">
@@ -37,6 +43,7 @@
                <h1>Words</h1>
             </div>
          </div>
+
          <!-- Vocabularly words layed out in 6 columns;
              bootstrap may collapse to fewer columns and
              more rows if the window is narrow.
@@ -52,7 +59,9 @@
             {% endfor %}
          </div>
          <!-- row -->
+
          <br />
+
          <div class="row">
             <div class="col-xs-6 text-center">
                Use letters from
@@ -70,34 +79,77 @@
             <!-- col -->
          </div>
          <!-- row -->
+
          <br />
+
          <div class="row">
             <div class="col-xs-6 text-center">
                <form id="entry" method="POST" action="/_check">
                   <label for="attempt">Word:</label>
                   <input id="attempt" name="attempt" type="text" width="15"
                      autocomplete="off"  autofocus />
-                  <input type="submit" name="try" />
+                 <!--  <input type="submit" name="try" />  REMOVED SUBMIT BUTTON-->
                </form>
             </div>
          </div>
+
          <br />
-         {% if session.matches|length is not equalto 0  %}
-         <h2>You found </h2>
-         <p id="results">
-            {% for match in session.matches %}
-            {{ match }}
-            {% endfor %}
-         </p>
-         {% endif %}
-         {% with messages = get_flashed_messages() %}
-         {% if messages %}
-         <!-- Mismatch, already found, etc. "flashed" from Python -->
-         {% for message in messages %}
-         <p class="message">{{ message }}</p>
-         {% endfor %}
-         {% endif %}
-         {% endwith %}
+
+         <p id="message"> </p>
+         <!-- JavaScript will insert text here -->
+
+         <br />
+
+         <p id="response"> </p> 
+         <!-- JavaScript will insert text here -->
+
+         <script>
+
+            // Suppress normal form submission
+            $("#entry").submit( function(event) {
+               event.preventDefault();
+              });
+
+            // On each keystroke, ask the server whether the current
+            // word is long enough.
+            // We use 'keyup' because the form value
+            // is updated before that event is generated.
+            // keypress is triggered before the input field has been
+            // updated.  Be aware that we'll see non-character keys like
+            // shift and control, so make sure whatever you do with the
+            // event does not depend on it being a letter.
+            //
+            $("#attempt").keyup(function(event) {
+               var txt = $("#attempt").val();  // Current content of the input field
+               var keycode = event.which;      // Gets the key that just went up
+               var letter = String.fromCharCode(keycode); // Get the key in terms of a letter
+
+               if (! "ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(letter)) { return }                // Verifies if the key typed was actually a letter or not (if not then we don't care)
+
+               // This function gets the json object that the server gives back.
+               // Then if the object is '#' (our flag for all done) then we redirect to the success page, 
+               // otherweise we give the typed word to our bank of typed words and clear the attempt space
+               $.getJSON("/_check", { text: txt },
+                          function(data) {
+                           word = data.result.key;
+                           console.log("word:" + word)
+                           if (word == '#') { // This was the last word needed
+                              window.location.replace("/success");} // Change the webpage to the success page, goal has been achieved
+                           else if (word == '!'){   // This was one of the words NOT in the jumble
+                               $("#message").html("Unfortunately that was not one of the words that can be made, keep trying!"); // Add the word to the list of correct words
+                           } else if (word == '?'){   // This was not a valid word
+                               $("#message").html("That's not quite it, try making one of the words above!"); // Let the user know that that's not in the list
+                           } else if (word != ''){   // This was not the last word needed, but was correct
+                              $("#response").append(word); // Add the word to the list of correct words
+                              $("#attempt").val(""); // Clear the attempt space (remove the word and start fresh)) 
+                              $("#message").html(" "); // Clear the message to users since the answer was correct
+                        }
+                        }
+                       );
+               });
+
+         </script>
+      
       </div>
       <!-- container -->
    </body>
