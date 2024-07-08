@@ -1,0 +1,46 @@
+/* success.css */
+
+/* General body settings */
+body {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+/* Centering the container and giving it some padding */
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Header styling */
+h1 {
+    font-size: 3em;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+/* Paragraph and link styling */
+p {
+    font-size: 1.5em;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+a {
+    color: #fda085;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #f6d365;
+}

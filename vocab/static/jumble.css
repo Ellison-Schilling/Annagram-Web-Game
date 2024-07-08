@@ -1,15 +1,75 @@
-/* 
- * Styles for vocabulary program. 
- * 
- * This may be used in combination with 
- * Twitter Bootstrap style sheets, which 
- * provide responsive design for mobile
- * devices, so we don't want to mess up 
- * layout and text sizes here.  Use this
- * style sheet mainly for minor attributes 
- * like text color, italics, etc. 
- */
+/* jumble.css */
 
-.message { 
-    color: red;
+/* General body settings */
+body {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    padding-top: 50px;
+}
+
+/* Centering the container and giving it some padding */
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+/* Header styling */
+h1 {
+    font-size: 3em;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 20px;
+}
+
+/* Vocabulary words styling */
+.col-xs-2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+/* Styling for the 'Use letters from' text */
+.lead {
+    font-size: 2em;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+/* Form input field */
+input[type="text"] {
+    font-size: 1.2em;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #fda085;
+    outline: none;
+    width: 50%;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+    margin: 0 auto;
+}
+
+input[type="text"]:focus {
+    border-color: #f6d365;
+}
+
+/* Messages styling */
+#message, #response {
+    font-size: 1.2em;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+/* Additional spacing */
+br {
+    margin-bottom: 20px;
 }

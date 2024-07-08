@@ -22,13 +22,13 @@
          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
          crossorigin="anonymous">
       
-         <!-- Compiled and minified JavaScript -->
+      <!-- Compiled and minified JavaScript -->
       <script
          src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
          crossorigin="anonymous"></script>
       
-         <!-- Let's set our title! -->
+      <!-- Let's set our title! -->
       <title>Vocabulary Anagram</title>
       
       <!-- Our own css file.  Note how we can link directly here and not -->
@@ -38,12 +38,8 @@
 
    <body>
       <div class="container">
-         <div class="row">
-            <div class="col-xs-6 text-center">
-               <h1>Words</h1>
-            </div>
-         </div>
-
+         <h1>Words</h1>
+         
          <!-- Vocabularly words layed out in 6 columns;
              bootstrap may collapse to fewer columns and
              more rows if the window is narrow.
@@ -51,7 +47,7 @@
          <div class="row">
             {% for word in g.vocab %}
             <div class="col-xs-2 text-center"> {{ word }} </div>
-            {% if loop.index is divisibleby 3 %}
+            {% if loop.index is divisibleby 6 %}
          </div>
          <!-- row -->
          <div class="row">
@@ -63,17 +59,17 @@
          <br />
 
          <div class="row">
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-12 text-center">
                Use letters from
             </div>
          </div>
          <div class="row">
-            <div class="col-xs-6 text-center lead">
+            <div class="col-xs-12 text-center lead">
                <strong>{{ session.jumble }}</strong>
             </div>
          </div>
          <div class="row">
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-12 text-center">
                to spell {{session.target_count}} words from the list.
             </div>
             <!-- col -->
@@ -83,7 +79,7 @@
          <br />
 
          <div class="row">
-            <div class="col-xs-6 text-center">
+            <div class="col-xs-12 text-center">
                <form id="entry" method="POST" action="/_check">
                   <label for="attempt">Word:</label>
                   <input id="attempt" name="attempt" type="text" width="15"

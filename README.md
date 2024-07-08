@@ -21,11 +21,14 @@ There is no submit button as submits are done after each key press. If the user 
 # Instructions For Use
 
 
-## Docker Compose
-To run docker compose for this application first ascertain that you are in the correct directory, specifically the one that contains the Docker-compose file. From there proceed to make your Docker image by executing the command:
+## Docker 
+To run docker for this application first ascertain that you are in the correct directory, specifically the one that contains the Docker file. From there proceed to make your Docker image by executing the command:
 
+>> docker buildx build --load -t flask-vocab-app .
 
-docker-compose up --build
+then to run locally do the following:
+
+>> docker run -p 5001:5000 flask-vocab-app      
 
 
 
